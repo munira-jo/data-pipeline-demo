@@ -1,3 +1,4 @@
 .ipynb_checkpoints/
 zipped_raw_data/
 raw_data/
+.env

@@ -1,15 +1,7 @@
 import os
-import psycopg2
+import pandas as pd
 import shutil
 from zipfile import ZipFile
-
-
-def connect_to_db(db_name, password):
-    conn = psycopg2.connect(
-        f"dbname={db_name} user=dataengineer host='mydb.cb7sygkkbh0u.us-east-2.rds.amazonaws.com' port=5432 password={password}"
-    )
-    cur = conn.cursor()
-    return conn, cur
 
 
 def extract_and_unzip_files(zipped_folder, unzipped_folder):
