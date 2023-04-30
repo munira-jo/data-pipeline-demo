@@ -95,7 +95,7 @@ CREATE TABLE inspection (
 sql_list.append(inspection_sql)
 
 violation_sql = """CREATE TABLE violation (
-    Unique_ID FLOAT PRIMARY KEY,
+    Unique_ID FLOAT,
     Insp_Date DATE NOT NULL,
     DOT_Number VARCHAR(50) NOT NULL,
     Viol_Code VARCHAR(50) NOT NULL,
