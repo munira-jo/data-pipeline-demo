@@ -1,0 +1,14 @@
+version: 2
+sources:
+- name: staging
+  database: staging
+  schema: public
+  tables:
+    - name: violation
+    - name: crash
+    - name: census
+    - name: inspection
+
+
+
+
