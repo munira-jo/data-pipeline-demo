@@ -104,11 +104,11 @@ violation_sql = """CREATE TABLE violation (
     OOS_Weight REAL,
     Severity_Weight FLOAT,
     Time_Weight REAL,
-    Total_Severity_Wght FLOAT,
+    TOT_SEVERITY_WGHT FLOAT,
+    Viol_value float,
     Section_Desc VARCHAR(200) ,
     Group_Desc VARCHAR(200),
-    Viol_Unit CHAR(2)
-);"""
+    Viol_Unit CHAR(2));"""
 
 sql_list.append(violation_sql)
 
