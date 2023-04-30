@@ -1,5 +1,25 @@
---# Crash
+from dotenv import load_dotenv
+import os
+import psycopg2
 
+load_dotenv()
+
+db_password = os.getenv("DB_PASSWORD")
+db_host=os.getenv("DB_HOST")
+db_user=os.getenv("DB_USER")
+
+
+def connect_to_db(db_name, password):
+    conn = psycopg2.connect(
+        f"dbname={db_name} user={db_user} host={db_host} port=5432 password={password}"
+    )
+    cur = conn.cursor()
+    return conn, cur
+
+
+sql_list = []
+
+crash_sql = """
 CREATE TABLE crash (
   Report_number VARCHAR(50) NOT NULL,
   Report_seq_no REAL NOT NULL,
@@ -24,10 +44,11 @@ CREATE TABLE crash (
   seq_num REAL,
   Not_Preventable CHAR(1)
 );
+"""
 
+sql_list.append(crash_sql)
 
--- Inspection
-
+inspection_sql = """
 CREATE TABLE inspection (
   Unique_ID FLOAT PRIMARY KEY,
   Report_Number VARCHAR(255)  NOT NULL,
@@ -69,15 +90,15 @@ CREATE TABLE inspection (
   Vh_Maint_Viol FLOAT ,
   HM_Viol FLOAT 
 );
+"""
 
+sql_list.append(inspection_sql)
 
--- Violation
-
-CREATE TABLE violation (
+violation_sql = """CREATE TABLE violation (
     Unique_ID FLOAT PRIMARY KEY,
     Insp_Date DATE NOT NULL,
     DOT_Number VARCHAR(50) NOT NULL,
-    Viol_Code VARCHAR(10) NOT NULL,
+    Viol_Code VARCHAR(50) NOT NULL,
     BASIC_Desc VARCHAR(50) ,
     OOS_Indicator CHAR(1),
     OOS_Weight REAL,
@@ -86,13 +107,12 @@ CREATE TABLE violation (
     Total_Severity_Wght FLOAT,
     Section_Desc VARCHAR(200) ,
     Group_Desc VARCHAR(200),
-    Viol_Unit CHAR(1)
-);
+    Viol_Unit CHAR(2)
+);"""
 
+sql_list.append(violation_sql)
 
--- Census
-
-CREATE TABLE census (
+census_sql = """CREATE TABLE census (
     DOT_NUMBER TEXT PRIMARY KEY,
     LEGAL_NAME TEXT,
     DBA_NAME TEXT,
@@ -123,3 +143,14 @@ CREATE TABLE census (
     RECENT_MILEAGE_YEAR FLOAT,
     VMT_SOURCE_ID FLOAT
 );
+"""
+
+sql_list.append(census_sql)
+
+conn, cursor = connect_to_db("staging", db_password)
+
+for sql in sql_list:
+    cursor.execute(sql)
+    conn.commit()
+cursor.close()
+conn.close()
