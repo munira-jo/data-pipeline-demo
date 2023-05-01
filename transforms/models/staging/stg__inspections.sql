@@ -8,9 +8,11 @@ select
 unique_id,
 dot_number,
 insp_level_id,
+report_number,
 
 --strings
 county_code_state,
+report_state,
 hazmat_placard_req,
 unit_type_desc,
 unit_make,

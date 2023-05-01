@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: dim_inspections__reports
+    columns:
+      - name: report_id
+        description: The surrogate key of the reports
+        tests:
+          - not_null
+          - unique
+  - name: dim_inspections__inspection_details
+    columns:
+      - name: inspection_detail_id
+        description: The surrogate key of the inspection details
+        tests:
+          - not_null
+          - unique
+  - name: dim_inspections__primary_units
+    columns:
+      - name: primary_unit_id
+        description: The surrogate key for primary units
+        tests:
+          - not_null
+          - unique
+  - name: dim_inspections__secondary_units
+    columns:
+      - name: secondary_unit_id
+        description: The surrogate key for secondary units
+        tests:
+          - not_null
+          - unique
+  - name: fact_inspections
+    columns:
+      - name: inspection_id
+        description: The primary key for inspections
+        tests:
+          - not_null
+          - unique
