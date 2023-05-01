@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: dim_census__vehicle_details
+    columns:
+      - name: vehicle_detail_id
+        description: The surrogate key for the vehicle details
+        tests:
+          - not_null
+          - unique
+  - name: dim_census__address
+    columns:
+      - name: address_id
+        description: The surrogate key for the address
+        tests:
+          - not_null
+          - unique
+  - name: dim_census__contact
+    columns:
+      - name: contact_id
+        description: The surrogate key for the contacts
+        tests:
+          - not_null
+          - unique
+  - name: fact_census
+    columns:
+      - name: census_id
+        description: The primary key for the census data
+        tests:
+          - not_null
+          - unique
