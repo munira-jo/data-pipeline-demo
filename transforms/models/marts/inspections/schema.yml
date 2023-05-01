@@ -29,6 +29,13 @@ models:
         tests:
           - not_null
           - unique
+  - name: dim_inspections__violations
+    columns:
+      - name: violation_id
+        description: The surrogate key for violations
+        tests:
+          - not_null
+          - unique
   - name: fact_inspections
     columns:
       - name: inspection_id
