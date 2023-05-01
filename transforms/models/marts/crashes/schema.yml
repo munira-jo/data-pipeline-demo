@@ -3,7 +3,7 @@ version: 2
 models:
   - name: dim_crashes__conditions
     columns:
-      - name: conditions_id
+      - name: condition_id
         description: The surrogate key of the conditions
         tests:
           - not_null
