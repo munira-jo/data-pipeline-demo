@@ -5,8 +5,8 @@ import psycopg2
 load_dotenv()
 
 db_password = os.getenv("DB_PASSWORD")
-db_host=os.getenv("DB_HOST")
-db_user=os.getenv("DB_USER")
+db_host = os.getenv("DB_HOST")
+db_user = os.getenv("DB_USER")
 
 
 def connect_to_db(db_name, password):
