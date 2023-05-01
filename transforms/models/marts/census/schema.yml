@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: dim_census__reports
+    columns:
+      - name: report_id
+        description: The surrogate key of the reports
+        tests:
+          - not_null
+          - unique
