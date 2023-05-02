@@ -1,0 +1,15 @@
+transforms:
+  outputs:
+
+    dev:
+      type: postgres
+      threads: 2
+      host: mydb.cb7sygkkbh0u.us-east-2.rds.amazonaws.com
+      port: 5432
+      user: dataengineer
+      pass: aculocity
+      dbname: 'staging'
+      schema: public
+
+
+  target: dev
