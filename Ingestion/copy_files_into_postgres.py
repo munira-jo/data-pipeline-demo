@@ -24,6 +24,9 @@ def connect_to_db(database_name, database_password,database_user=db_user,databas
 
 
 def copy_csv_file_to_postgres_table(*,csv_file_path,postgres_table_name,database_password):
+    '''
+    Copies a CSV file into the table postgres_table_name on a Postgres database.
+    '''
     conn,cursor=connect_to_db('staging',database_password)
     conn.autocommit=True
     with open(csv_file_path,'r',encoding='utf-8') as myfile:
