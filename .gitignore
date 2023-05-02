@@ -1,4 +1,5 @@
 .ipynb_checkpoints/
+ingestion/__pycache__
 zipped_raw_data/
 raw_data/
 .env
