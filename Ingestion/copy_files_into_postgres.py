@@ -3,6 +3,8 @@ import os
 import psycopg2
 from dotenv import load_dotenv
 
+from prepare_data_for_ingestion import move_files_to_new_subfolder
+
 load_dotenv()
 
 db_password = os.getenv("DB_PASSWORD")
@@ -39,7 +41,8 @@ def copy_csv_file_to_postgres_table(*,csv_file_path,postgres_table_name,database
 
 def main(csv_folder):
     '''
-    Copies all files in csv_folder to similar named tables on a Postgres database.
+    Copies all files in csv_folder to similar named tables on a Postgres database,
+    then moves copied file into subfolder 'Processed'.
     '''
     csv_dict={}
     for csv_file in os.listdir(csv_folder_path):
@@ -47,7 +50,9 @@ def main(csv_folder):
             csv_dict[csv_file]=csv_file.split('_')[1].lower()
     for csv_file,table_name in csv_dict.items():
         copy_csv_file_to_postgres_table(csv_file_path=os.path.join(csv_folder_path,csv_file), \
-                                        postgres_table_name=table_name,database_password=db_password)
+                                    postgres_table_name=table_name,database_password=db_password)
+        move_files_to_new_subfolder(new_folder_name='Processed',original_folder_path=csv_folder, \
+                                    file_identifier=csv_file)
 
 
 csv_folder_path=os.path.join(os.getcwd(),'raw_data','CleanedData')
