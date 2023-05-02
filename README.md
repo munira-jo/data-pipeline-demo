@@ -10,6 +10,13 @@ This data pipeline does the following:
 - creates tables in a Postgres database
 - copies CSV files from a cleaned data folder into the tables.
 
+
+## How to run
+
+1. Ingest the data by running `python3 ingestion/main.py`
+2  Transform the ingested data into a star schema by navigating into `transforms`
+and running `dbt run`.
+
 ## Ingestion
 
 Raw zipped data files are placed in the `ingestion/zipped_raw_data` folder. 
