@@ -14,7 +14,7 @@ This data pipeline does the following:
 ## How to run
 
 1. Ingest the data by running `python3 ingestion/main.py`
-2  Transform the ingested data into a star schema by navigating into `transforms`
+2.  Transform the ingested data into a star schema by navigating into `transforms`
 and running `dbt run`.
 
 ## Ingestion
