@@ -1,5 +1,7 @@
 # Data Pipeline Demo
 
+## Ingestion
+
 A data pipeline that will ingest zipped data files in a given folder, load them into a postgres database hosted on AWS RDS and then transform the data into a star schema.
 
 Raw zipped data files are placed in the `ingestion/zipped_raw_data` folder. 
@@ -53,4 +55,11 @@ This is the directory structure for the `ingestion` folder after running `ingest
             Violation_2022Aug.zip
 
 
-Once files are handled by the scripts, they are moved into `Processed` subfolders. 
+Once files have been handled by the scripts, they are moved into `Processed` subfolders.
+
+## Data Transforms
+
+All of the data transformation post-ingestion are in the `transforms` folder. This is a [dbt](https://docs.getdbt.com/docs/) project linked to our Postgres database.
+
+The main data transformation code is in the `transforms/models` folder. Each of the mart models have tests associated with them to check whether the relevant keys are unique and not null.
+
