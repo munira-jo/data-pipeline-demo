@@ -1,3 +1,24 @@
+"""
+Module for creating tables on a Postgres database.
+
+This module provides functions for creating the following tables:
+- census (based on the `FMCSA_CENSUS1_2022Aug.zip` file)
+- violation (based on the `2022Aug_Violation.zip` file)
+- inspection (based on the `2022Aug_Inspection.zip` file)
+- crash (based on the `2022Aug_Crash.zip` file)
+
+
+Functions:
+- connect_to_db: Connects to the Postgres database hosted on RDS
+and returns connection and cursor objects.
+- main: Creates the tables listed above.
+
+Dependencies:
+- os: Provides a way to interact with the operating system.
+- psycopg2: Provides a way to connect to Postgres databases.
+- dotenv: Loads environment variables from a .env file.
+"""
+
 import os
 
 import psycopg2
@@ -11,9 +32,9 @@ db_user = os.getenv("DB_USER")
 
 
 def connect_to_db(db_name, password):
-    '''
+    """
     Connects to the Postgres database hosted on RDS. Provides connection and cursor objects.
-    '''
+    """
     conn = psycopg2.connect(
         f"dbname={db_name} user={db_user} host={db_host} port=5432 password={password}"
     )
@@ -22,9 +43,14 @@ def connect_to_db(db_name, password):
 
 
 def main():
+    """
+    Creates the crash, violations, census and inspection tables on the Postgres database.
+    """
 
-    sql_dict={}
-    sql_dict['crash'] = """
+    sql_dict = {}
+    sql_dict[
+        "crash"
+    ] = """
     CREATE TABLE crash (
     Report_number VARCHAR(50) NOT NULL,
     Report_seq_no REAL NOT NULL,
@@ -51,7 +77,9 @@ def main():
     );
     """
 
-    sql_dict['inspection'] = """
+    sql_dict[
+        "inspection"
+    ] = """
     CREATE TABLE inspection (
     Unique_ID FLOAT PRIMARY KEY,
     Report_Number VARCHAR(255)  NOT NULL,
@@ -95,7 +123,9 @@ def main():
     );
     """
 
-    sql_dict['violation'] = """CREATE TABLE violation (
+    sql_dict[
+        "violation"
+    ] = """CREATE TABLE violation (
         Unique_ID FLOAT,
         Insp_Date DATE NOT NULL,
         DOT_Number VARCHAR(50) NOT NULL,
@@ -111,7 +141,9 @@ def main():
         Group_Desc VARCHAR(200),
         Viol_Unit CHAR(2));"""
 
-    sql_dict['census'] = """CREATE TABLE census (
+    sql_dict[
+        "census"
+    ] = """CREATE TABLE census (
         DOT_NUMBER TEXT PRIMARY KEY,
         LEGAL_NAME TEXT,
         DBA_NAME TEXT,
@@ -146,12 +178,16 @@ def main():
 
     conn, cursor = connect_to_db("staging", db_password)
 
-    for table,sql in sql_dict.items():
+    for table, sql in sql_dict.items():
         try:
             cursor.execute(sql)
             conn.commit()
-            print(f'{table} created')
+            print(f"{table} created")
         except psycopg2.errors.DuplicateTable:
-            print(f'{table} already exists')
+            print(f"{table} already exists")
     cursor.close()
     conn.close()
+
+
+if __name__ == "__main__":
+    main()
