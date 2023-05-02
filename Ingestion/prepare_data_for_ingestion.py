@@ -167,9 +167,9 @@ def main(*,folder_with_zipped_data,folder_with_extracted_data):
 
 
 zipped_folder = os.path.join(
-    "C:\\Users\\Munira\\Desktop\\demo-pipeline", "zipped_raw_data"
+    "C:\\Users\\Munira\\Desktop\\demo-pipeline","ingestion", "zipped_raw_data"
 )
-unzipped_folder = os.path.join("C:\\Users\\Munira\\Desktop\\demo-pipeline", "raw_data")
+unzipped_folder = os.path.join("C:\\Users\\Munira\\Desktop\\demo-pipeline","ingestion", "raw_data")
 
 
 if __name__ == "__main__":
