@@ -8,6 +8,7 @@ Raw zipped data files are placed in the `ingestion/zipped_raw_data` folder.
 
 For the ingestion into a Postgres database, run the `ingestion/main.py` script. Before running the script, the directory structure for the `ingestion` folder looks like this:
 
+```
 │   copy_files_into_postgres.py
 │   create_tables.py
 │   main.py
@@ -18,7 +19,7 @@ For the ingestion into a Postgres database, run the `ingestion/main.py` script. 
         FMCSA_CENSUS1_2022Aug.zip
         Inspection_2022Aug.zip
         Violation_2022Aug.zip
-
+```
 
 After the script is run, files are extracted from the zipped files and are organized into ReadMe and regular data files. Then a cleaning script prepares the data for ingestion into Postgres and writes the cleaned data to CSV files stored in `CleanedData`.  
 
