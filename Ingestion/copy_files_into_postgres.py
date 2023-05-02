@@ -1,3 +1,21 @@
+'''
+Module for copying CSV files to a Postgres database.
+
+This module provides functions for connecting to a Postgres database hosted on RDS and copying CSV files into tables on the database. It also includes a main function for copying all files in a specified folder to the corresponding tables on the database and moving them to a new subfolder.
+
+Functions:
+- connect_to_db(database_name, database_password, database_user=db_user, database_host=db_host): Connects to the Postgres database hosted on RDS and returns connection and cursor objects.
+- copy_csv_file_to_postgres_table(csv_file_path, postgres_table_name, database_password): Copies a CSV file into the specified table on a Postgres database.
+- main(csv_folder): Copies all files in the specified folder to corresponding tables on a Postgres database and moves them to a new subfolder.
+
+Dependencies:
+- os: Provides a way to interact with the operating system.
+- psycopg2: Provides a way to connect to Postgres databases.
+- dotenv: Loads environment variables from a .env file.
+- prepare_data_for_ingestion: Provides a function for moving files to a new subfolder.
+
+'''
+
 import os
 
 import psycopg2
