@@ -1,6 +1,7 @@
-from dotenv import load_dotenv
 import os
+
 import psycopg2
+from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -10,6 +11,9 @@ db_user = os.getenv("DB_USER")
 
 
 def connect_to_db(db_name, password):
+    '''
+    Connects to the Postgres database hosted on RDS. Provides connection and cursor objects.
+    '''
     conn = psycopg2.connect(
         f"dbname={db_name} user={db_user} host={db_host} port=5432 password={password}"
     )
