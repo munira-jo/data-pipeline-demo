@@ -22,7 +22,6 @@ functions:
 """
 
 
-
 import os
 import shutil
 from time import sleep
@@ -90,7 +89,9 @@ def clean_raw_data_files(original_filepath, cleaned_folder_path):
     raw_df = raw_df.dropna(how="all")
 
     # Replacing empty strings for float columns with nans
-    num_cols = [col for col in raw_df.columns if raw_df[col].dtype in ["float64", "int64"]]
+    num_cols = [
+        col for col in raw_df.columns if raw_df[col].dtype in ["float64", "int64"]
+    ]
     for col in num_cols:
         raw_df[col] = raw_df[col].fillna(np.nan)
         raw_df.loc[raw_df[col] == "", col] = np.nan
@@ -110,11 +111,11 @@ def clean_raw_data_files(original_filepath, cleaned_folder_path):
     )
 
 
-def main(*,folder_with_zipped_data,folder_with_extracted_data):
-    '''
-    Extracts files from .zip files, cleans them up and stores 
+def main(*, folder_with_zipped_data, folder_with_extracted_data):
+    """
+    Extracts files from .zip files, cleans them up and stores
     them as CSV files to be ingested into Postgres.
-    '''
+    """
     zip_files = [x for x in os.listdir(folder_with_zipped_data) if x.endswith(".zip")]
     for zip_file in zip_files:
         # Extract files
@@ -163,14 +164,16 @@ def main(*,folder_with_zipped_data,folder_with_extracted_data):
         )
 
 
-
-
-
 zipped_folder = os.path.join(
-    "C:\\Users\\Munira\\Desktop\\demo-pipeline","ingestion", "zipped_raw_data"
+    "C:\\Users\\Munira\\Desktop\\demo-pipeline", "ingestion", "zipped_raw_data"
 )
-unzipped_folder = os.path.join("C:\\Users\\Munira\\Desktop\\demo-pipeline","ingestion", "raw_data")
+unzipped_folder = os.path.join(
+    "C:\\Users\\Munira\\Desktop\\demo-pipeline", "ingestion", "raw_data"
+)
 
 
 if __name__ == "__main__":
-    main(folder_with_zipped_data=zipped_folder,folder_with_extracted_data=unzipped_folder)
+    main(
+        folder_with_zipped_data=zipped_folder,
+        folder_with_extracted_data=unzipped_folder,
+    )

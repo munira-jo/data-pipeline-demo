@@ -62,28 +62,45 @@ def create_user(database_password):
 
 def create_database(database_password):
     """
-    Creates the database 'staging'.
+    Creates the database 'staging' and grants all permissions to
+    the user 'dataengineer'
     """
-    sql = "create database staging"
 
+    # Create database
+    sql = "create database staging"
     conn, cursor = connect_to_db(
         db_name="postgres",
-        database_user="dataengineer",
+        database_user="postgres",
         database_password=database_password,
     )
     conn.autocommit = True
+
     try:
         cursor.execute(sql)
         print("Database staging created.")
-    except psycopg2.errors.DuplicateObject:
+    except psycopg2.errors.DuplicateDatabase:
         print(f"Database already exists")
+    cursor.close()
+    conn.close()
+
+    # Grant privileges
+    conn, cursor = connect_to_db(
+        db_name="staging",
+        database_user="postgres",
+        database_password=database_password,
+    )
+    conn.autocommit = True
+    sql = "alter database staging owner to dataengineer"
+    cursor.execute(sql)
+    sql = "grant all privileges on schema public to dataengineer"
+    cursor.execute(sql)
     cursor.close()
     conn.close()
 
 
 def main(*, postgres_user_password, database_password):
     create_user(postgres_user_password)
-    create_database(database_password)
+    create_database(postgres_user_password)
 
 
 if __name__ == "__main__":
