@@ -57,10 +57,21 @@ def copy_csv_file_to_postgres_table(
     """
     conn, cursor = connect_to_db("staging", database_password)
     conn.autocommit = True
-    cursor.execute("set client_encoding='win1252'")
-    with open(csv_file_path, "r", encoding="cp1252") as myfile:
-        copy_sql = "COPY crash FROM STDIN WITH (FORMAT CSV, HEADER)"
-        cursor.copy_expert(copy_sql, myfile)
+
+    try:
+        cursor.execute("set client_encoding='win1252'")
+        with open(csv_file_path, "r", encoding="cp1252") as myfile:
+            copy_sql = (
+                f"COPY {postgres_table_name} FROM STDIN WITH (FORMAT CSV, HEADER)"
+            )
+            cursor.copy_expert(copy_sql, myfile)
+    except psycopg2.errors.QueryCanceled or psycopg2.errors.UntranslatableCharacter:
+        cursor.execute("set client_encoding='utf-8'")
+        with open(csv_file_path, "r", encoding="utf8") as myfile:
+            copy_sql = (
+                f"COPY {postgres_table_name} FROM STDIN WITH (FORMAT CSV, HEADER)"
+            )
+            cursor.copy_expert(copy_sql, myfile)
     cursor.close()
     conn.close()
     print(f"{csv_file_path} copied to table {postgres_table_name}")
@@ -74,7 +85,9 @@ def main(csv_folder):
     csv_dict = {}
     for csv_file in os.listdir(csv_folder_path):
         if os.path.isfile(os.path.join(csv_folder_path, csv_file)):
-            csv_dict[csv_file] = csv_file.split("_")[1].lower()
+            csv_dict[csv_file] = (
+                csv_file.split("_")[1].lower().replace(".csv", "").replace("1", "")
+            )
     for csv_file, table_name in csv_dict.items():
         copy_csv_file_to_postgres_table(
             csv_file_path=os.path.join(csv_folder_path, csv_file),

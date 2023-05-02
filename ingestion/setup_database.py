@@ -99,10 +99,10 @@ def create_database(database_password):
 
 
 def main(*, postgres_user_password):
-    '''
+    """
     Creates the user dataengineer
     and then creates the staging database.
-    '''
+    """
     create_user(postgres_user_password)
     create_database(postgres_user_password)
 
