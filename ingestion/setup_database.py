@@ -55,7 +55,7 @@ def create_user(database_password):
         cursor.execute(sql)
         print("Database user created.")
     except psycopg2.errors.DuplicateObject:
-        print(f"User already exists")
+        print("User already exists")
     cursor.close()
     conn.close()
 
@@ -79,7 +79,7 @@ def create_database(database_password):
         cursor.execute(sql)
         print("Database staging created.")
     except psycopg2.errors.DuplicateDatabase:
-        print(f"Database already exists")
+        print("Database already exists")
     cursor.close()
     conn.close()
 
@@ -98,10 +98,14 @@ def create_database(database_password):
     conn.close()
 
 
-def main(*, postgres_user_password, database_password):
+def main(*, postgres_user_password):
+    '''
+    Creates the user dataengineer
+    and then creates the staging database.
+    '''
     create_user(postgres_user_password)
     create_database(postgres_user_password)
 
 
 if __name__ == "__main__":
-    main(postgres_user_password=postgre_user_db_password, database_password=db_password)
+    main(postgres_user_password=postgre_user_db_password)
