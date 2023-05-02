@@ -2,6 +2,7 @@
 
 A data pipeline that will ingest zipped data files in a given folder, load them into a postgres database hosted on AWS RDS and then transform the data into a star schema.
 
+
 This data pipeline does the following:
 - ingests raw data in the form of zipped files
 - extracts the data to a given folder
