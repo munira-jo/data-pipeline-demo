@@ -27,7 +27,7 @@ Then the `create_tables.py` module creates the relevant tables on the database (
 Finally, the `copy_files_into_postgres` module copies the CSV files into the tables.
 
 This is the directory structure for the `ingestion` folder after running `ingestion/main.py`:
-
+```
 │   copy_files_into_postgres.py
 │   create_tables.py
 │   main.py
@@ -59,7 +59,7 @@ This is the directory structure for the `ingestion` folder after running `ingest
            FMCSA_CENSUS1_2022Aug.zip
            Inspection_2022Aug.zip
            Violation_2022Aug.zip
-
+```
 
 Note: Once files have been handled by the scripts, they are moved into `Processed` subfolders.
 
