@@ -37,13 +37,20 @@ def copy_csv_file_to_postgres_table(*,csv_file_path,postgres_table_name,database
     print(f'{csv_file_path} copied to table {postgres_table_name}')
 
 
+def main(csv_folder):
+    '''
+    Copies all files in csv_folder to similar named tables on a Postgres database.
+    '''
+    csv_dict={}
+    for csv_file in os.listdir(csv_folder_path):
+        if os.path.isfile(os.path.join(csv_folder_path,csv_file)):
+            csv_dict[csv_file]=csv_file.split('_')[1].lower()
+    for csv_file,table_name in csv_dict.items():
+        copy_csv_file_to_postgres_table(csv_file_path=os.path.join(csv_folder_path,csv_file), \
+                                        postgres_table_name=table_name,database_password=db_password)
+
 
 csv_folder_path=os.path.join(os.getcwd(),'raw_data','CleanedData')
 
-csv_dict={}
-for csv_file in os.listdir(csv_folder_path):
-    if os.path.isfile(os.path.join(csv_folder_path,csv_file)):
-        csv_dict[csv_file]=csv_file.split('_')[1].lower()
-for csv_file,table_name in csv_dict.items():
-    copy_csv_file_to_postgres_table(csv_file_path=os.path.join(csv_folder_path,csv_file), \
-                                    postgres_table_name=table_name,database_password=db_password)
+if __name__=='__main__':
+    main(csv_folder_path)
