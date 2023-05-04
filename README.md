@@ -10,6 +10,7 @@ This data pipeline does the following:
 - creates tables in a Postgres database
 - copies CSV files from a cleaned data folder into the tables.
 - creates star schema fact and dimension tables from the raw data tables
+- runs data tests to check if keys in star schema tables are unique 
 
 
 ## How to run
