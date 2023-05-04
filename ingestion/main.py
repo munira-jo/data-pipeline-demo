@@ -53,4 +53,4 @@ if __name__ == "__main__":
         folder_with_extracted_data=os.path.join(local_repo_path, "ingestion", "raw_data"),
     )
     create_tables.main()
-    copy_files_into_postgres.main(csv_folder=os.path.join(local_repo_path,"ingestion","raw_data", "CleanedData"))
+    copy_files_into_postgres.main(csv_folder_path=os.path.join(local_repo_path,"ingestion","raw_data", "CleanedData"))

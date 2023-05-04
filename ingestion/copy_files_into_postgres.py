@@ -77,7 +77,7 @@ def copy_csv_file_to_postgres_table(
     print(f"{csv_file_path} copied to table {postgres_table_name}")
 
 
-def main(csv_folder):
+def main(*csv_folder_path):
     """
     Copies all files in csv_folder to similar named tables on a Postgres database,
     then moves copied file into subfolder 'Processed'.
@@ -100,8 +100,8 @@ def main(csv_folder):
             file_identifier=csv_file,
         )
 
-
-csv_folder_path = os.path.join(os.getcwd(), "raw_data", "CleanedData")
+local_repo_path="C:\\Users\\Munira\\Desktop\\demo-pipeline"
+csv_folder_path = os.path.join(local_repo_path,"ingestion","raw_data", "CleanedData")
 
 if __name__ == "__main__":
-    main(csv_folder_path)
+    main(csv_folder_path=csv_folder_path)
