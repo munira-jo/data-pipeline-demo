@@ -42,24 +42,15 @@ postgre_user_db_password = os.getenv("POSTGRES_USER_DB_PASSWORD")
 # Database password for 'dataengineer' user
 db_password = os.getenv("DB_PASSWORD")
 
-zipped_folder = os.path.join(
-    "C:\\Users\\Munira\\Desktop\\demo-pipeline", "ingestion", "zipped_raw_data"
-)
-unzipped_folder = os.path.join(
-    "C:\\Users\\Munira\\Desktop\\demo-pipeline", "ingestion", "raw_data"
-)
-
-csv_folder_path = os.path.join(
-    "C:\\Users\\Munira\\Desktop\\demo-pipeline", "raw_data", "CleanedData"
-)
+local_repo_path="C:\\Users\\Munira\\Desktop\\demo-pipeline"
 
 if __name__ == "__main__":
     setup_database.main(
         postgres_user_password=postgre_user_db_password
     )
     prepare_data_for_ingestion.main(
-        folder_with_zipped_data=zipped_folder,
-        folder_with_extracted_data=unzipped_folder,
+        folder_with_zipped_data=os.path.join(local_repo_path, "ingestion", "zipped_raw_data"),
+        folder_with_extracted_data=os.path.join(local_repo_path, "ingestion", "raw_data"),
     )
     create_tables.main()
-    copy_files_into_postgres.main(csv_folder=csv_folder_path)
+    copy_files_into_postgres.main(csv_folder=os.path.join(local_repo_path,"ingestion","raw_data", "CleanedData"))
