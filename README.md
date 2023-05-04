@@ -9,6 +9,7 @@ This data pipeline does the following:
 - creates the Postgres database and database user
 - creates tables in a Postgres database
 - copies CSV files from a cleaned data folder into the tables.
+- creates star schema fact and dimension tables from the raw data tables
 
 
 ## How to run
