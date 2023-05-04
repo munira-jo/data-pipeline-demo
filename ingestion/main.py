@@ -55,7 +55,7 @@ csv_folder_path = os.path.join(
 
 if __name__ == "__main__":
     setup_database.main(
-        postgres_user_password=postgre_user_db_password, database_password=db_password
+        postgres_user_password=postgre_user_db_password
     )
     prepare_data_for_ingestion.main(
         folder_with_zipped_data=zipped_folder,
