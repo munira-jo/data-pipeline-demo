@@ -13,6 +13,11 @@ This data pipeline does the following:
 - runs data tests to check if keys in star schema tables are unique 
 
 
+## Getting the raw data
+
+The raw data can be downloaded from [here](https://drive.google.com/drive/folders/15z4P78n1LbgM2FBMPHH1K8Hl3jE4pPpr?usp=drive_link). For the scripts to work, it should be placed in the subfolder `ingestion/zipped_raw_data`.
+
+
 ## How to run
 
 1. Ingest the data by running `python3 ingestion/main.py`
